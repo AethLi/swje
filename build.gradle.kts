@@ -1,10 +1,10 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("maven-publish")
 }
 
 group = "one.tain.self"
@@ -42,4 +42,18 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "github"
+            url = URI("https://maven.pkg.github.com/aethli/swje")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
 }
